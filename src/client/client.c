@@ -4,9 +4,10 @@
 #include <netdb.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define DOMAIN "www.google.com" //owner of the ports we're checking.
-#define PORT "3979" //port
+#define PORT_NUM "3979" //port
 
 void baglan(void);
 
@@ -28,16 +29,16 @@ void baglan(void)
     hints.ai_socktype = SOCK_STREAM;
 
     
-    getaddrinfo(NULL, PORT , &hints, &res);
+    getaddrinfo(NULL, PORT_NUM , &hints, &res);
 
     sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 
     int c = connect(sockfd, res->ai_addr, res->ai_addrlen);
     if(c != -1)
     {
-            printf("%d Port açık. Baglanti kuruldu\n", PORT);
+            printf("%s Port açık. Baglanti kuruldu\n", PORT_NUM);
         }
-    else printf("%s Port Kapalı", PORT);
+    else printf("%s Port Kapalı", PORT_NUM);
     
     char *msg = "Mee too!";
     char tmp[256];
