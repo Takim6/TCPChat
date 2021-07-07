@@ -46,11 +46,13 @@ int main(void)
     char tmp[256] = {0};
 
     int valread = read( new_door , tmp, 256);
-    printf("%s\n",tmp );
+    printf("Gelen: %s\n",tmp );
 
     char *msg = "I'm alive!";
 
     send(new_door , msg , 12 , 0 );
+
+    printf("Giden: %s",msg);
                        
 
 
