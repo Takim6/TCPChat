@@ -13,7 +13,6 @@ int main(void)
 {
 
     int sockfd;
-    struct sockaddr_in address;
 
     struct addrinfo hints; //hints basically determines which sockets get to be in res.
     struct addrinfo *res; //sockets we get from getaddrinfo, restricted by the attributes we specified in hints.
@@ -33,21 +32,15 @@ int main(void)
         return -1;
     }
 
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(PORT);
 
-    //bind(sockfd, (struct sockaddr *)&address, sizeof(address));
     bind(sockfd,res->ai_addr,res->ai_addrlen);
 
     listen(sockfd,5);
 
-    int addrlen = sizeof(address);
+
     struct sockaddr_storage their_addr;
     unsigned int addr_size;
 
-
-    //int new_door = accept(sockfd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
     int new_door = accept(sockfd, (struct sockaddr*) &their_addr, &addr_size);
 
     char tmp[256] = {0};
